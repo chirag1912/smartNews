@@ -1,0 +1,10 @@
+{
+  "resourceName": "goibibohotels",
+  "tableName": "goibibohotels",
+  "partitionKey": {
+    "fieldName": "hotelId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "paths": {
+    "/goibibohotels": {
+      "name": "/goibibohotels",
+      "lambdaFunction": "goibiboLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/leasebookings": {
+      "name": "/leasebookings",
+      "lambdaFunction": "leaseBookingLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/user": {
+      "name": "/user",
+      "lambdaFunction": "userLambda",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

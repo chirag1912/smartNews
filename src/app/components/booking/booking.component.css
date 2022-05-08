@@ -1,0 +1,63 @@
+.testbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    padding: 20px;
+    }
+    label {
+        display: block;
+        font: 1rem 'Fira Sans', sans-serif;
+    }
+    
+    /* input,
+    label {
+        margin: .4rem 0;
+    } */
+
+    .example-chip-list {
+        width: 50%;
+        height:inherit; 
+      }
+      .mat-stepper-horizontal {
+        margin-top: 8px;
+      }
+      
+      .mat-form-field {
+        margin-top: 16px;
+      }
+      .example-form {
+        min-width: 150px;
+        max-width: 500px;
+        width: 100%;
+      }
+      
+      .example-full-width {
+        width: 100%;
+      }
+
+      /* .mat-date-range-input-start-wrapper .mat-date-range-input-inner {
+        position: absolute;
+        top: -7px;
+        left: 0;
+    } */
+    #startDate
+  {
+    top: -7px !important;
+  }
+
+  .imgCSS
+{
+    border-radius: 50%;
+    width: 6%;
+    height: 10%;
+}
+
+      /* .example-form-field-two {
+        margin: 0 8px 16px 0;
+      } */
+  /* .mat-date-range-input-start-wrapper .mat-date-range-input-inner
+  {
+    top: -6px !important;
+
+  } */

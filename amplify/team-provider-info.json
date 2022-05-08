@@ -1,0 +1,36 @@
+{
+  "devmain": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-leasebooking-devmain-104220-authRole",
+      "UnauthRoleArn": "arn:aws:iam::155539749264:role/amplify-leasebooking-devmain-104220-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::155539749264:role/amplify-leasebooking-devmain-104220-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
+      "UnauthRoleName": "amplify-leasebooking-devmain-104220-unauthRole",
+      "StackName": "amplify-leasebooking-devmain-104220",
+      "StackId": "arn:aws:cloudformation:us-west-2:155539749264:stack/amplify-leasebooking-devmain-104220/38333740-cef6-11ec-b81c-066f65f2936f",
+      "AmplifyAppId": "d1xa1xjpq426kk"
+    },
+    "categories": {
+      "auth": {
+        "leasebookingbe2dbe1d": {}
+      },
+      "function": {
+        "goibiboHotelsLambda": {},
+        "bookingLambda": {},
+        "userLambda": {
+          "deploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
+          "s3Key": "amplify-builds/userLambda-6e756b664e5a6b664266-build.zip"
+        },
+        "leaseBookingLambda": {
+          "deploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
+          "s3Key": "amplify-builds/leaseBookingLambda-4b7651626f514b4b4d5a-build.zip"
+        },
+        "goibiboLambda": {
+          "deploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
+          "s3Key": "amplify-builds/goibiboLambda-715333686d6453613230-build.zip"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,371 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<!-- <h1>Booking Dashboard</h1> -->
+<!-- <div *ngIf="hotelDetail">
+  <h1 > Book for {{hotelDetail.name}}  <br> Location: {{hotelDetail.Location}}</h1>
+
+</div> -->
+<div style="margin-left:30px;" *ngIf="hotelDetail">
+<h1><img class="imgCSS" src="{{hotelDetail.imageURL}}" style="margin-right:10px;"> Book your stay for {{hotelDetail.name}}
+</h1>
+<h4> Location : {{hotelDetail.Location}} </h4>
+</div>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Select Date and Type</ng-template>
+  
+      <h2> Dates Selected</h2>
+      <mat-form-field appearance="fill">
+        <mat-label>Enter a date range</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="pickerr" [min]="minDate" >
+          <input matStartDate  formControlName="start"  placeholder="Start date" >
+          <input matEndDate  formControlName="end"  placeholder="End date" (dateChange)="check7Days('change', $event)">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="pickerr"></mat-datepicker-toggle>
+        <mat-date-range-picker #pickerr></mat-date-range-picker>
+      </mat-form-field>
+
+    <mat-card>
+      <br>
+      <br>
+      <mat-card-title>Single Room</mat-card-title>
+  
+           <form [formGroup]="thirdFormGroup">
+            Select Number of Rooms  <input type="number"  formControlName="singleroom_no" id="singleroom_no" 
+            min="0" max="10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Number of Guests   <input type="number" formControlName="singleroom_guestsize" id="singleroom_guestsize"  
+            min="0" max="10">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <ng-template matStepLabel>Amenities</ng-template>
+            <mat-form-field class="example-chip-list" appearance="fill">
+              <mat-label>Amenties</mat-label>
+              <mat-chip-list #chipList aria-label="rooms selection">
+                <mat-chip
+                  *ngFor="let fruit of fruits"
+                  (removed)="remove(fruit)">
+                  {{fruit}}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+                <br>
+                <input
+                  placeholder="Amenties..."
+                  #fruitInput
+                  [formControl]="fruitCtrl"
+                  [matAutocomplete]="auto"
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                  {{fruit}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <!-- <br>
+              
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button> -->
+            
+          </form>
+          </mat-card>
+          
+          <mat-divider></mat-divider>
+    
+          <mat-card>
+            <mat-card-title>Double Room</mat-card-title>
+          <!-- <input type="number" id="double_room" name="singleroom_no"
+                 min="1" max="10"> -->
+                 
+                 <form [formGroup]="thirdFormGroup">
+              Select Number of Rooms <input type="number" formControlName="doubleroom_no" id="double_room" name="doubleroom_no"
+                  min="0" max="10">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              Number of Guests <input type="number" formControlName="doubleroom_guestsize" id="doubleroom_guestsize"  
+                  min="0" max="10">
+
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                  <ng-template matStepLabel>Amenities</ng-template>
+                  <mat-form-field class="example-chip-list" appearance="fill">
+                    <mat-label>Amenties</mat-label>
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                      <mat-chip
+                        *ngFor="let fruit of fruits"
+                        (removed)="remove(fruit)">
+                        {{fruit}}
+                        <button matChipRemove>
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                      <input
+                        placeholder="Amenties..."
+                        #fruitInput
+                        [formControl]="fruitCtrl"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)">
+                    </mat-chip-list>
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                      <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                        {{fruit}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <br>
+<!--                     
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button> -->
+                  
+                </form>
+                 <mat-divider></mat-divider>
+                </mat-card> 
+                <mat-card>
+                  <mat-card-title>Suite</mat-card-title>
+                  
+                <!-- <input type="number" id="suit" name="suit"
+                       min="1" max="10"> -->
+
+                       <br>
+                       <form [formGroup]="thirdFormGroup">
+                        Select Number of Rooms  <input type="number"  formControlName="suites_no" id="suit" name="suites"
+                        min="0" max="10">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        Number of Guests  <input type="number" formControlName="suites_guestsize" id="suites_guestsize"  
+                        min="0" max="10">
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <ng-template matStepLabel>Amenities</ng-template>
+                        <mat-form-field class="example-chip-list" appearance="fill">
+                          <mat-label>Amenties</mat-label>
+                          <mat-chip-list #chipList aria-label="Fruit selection">
+                            <mat-chip
+                              *ngFor="let fruit of fruits"
+                              (removed)="remove(fruit)">
+                              {{fruit}}
+                              <button matChipRemove>
+                                <mat-icon>cancel</mat-icon>
+                              </button>
+                            </mat-chip>
+                            <input
+                              placeholder="Amenties..."
+                              #fruitInput
+                              [formControl]="fruitCtrl"
+                              [matAutocomplete]="auto"
+                              [matChipInputFor]="chipList"
+                              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                              (matChipInputTokenEnd)="add($event)">
+                          </mat-chip-list>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                            <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+                              {{fruit}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                        <br>
+      <!--                     
+                          <button mat-button matStepperPrevious>Back</button>
+                          <button mat-button matStepperNext>Next</button> -->
+                        
+                      </form>
+                      </mat-card>
+                      <mat-divider></mat-divider>
+    
+  </form>
+      <!-- <mat-card>
+        <form class="example-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+          ><mat-label>From</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        
+          </mat-form-field>
+        </form>
+
+    </mat-card>
+  
+      <br>
+      
+    
+      <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+        ><mat-label>To</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      
+        </mat-form-field>-->
+    
+   
+    <br>
+    <br>
+    <br>
+      <div>
+        
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext primary (click)="getTotalPricing()" >Next</button>
+      </div>
+    
+  </mat-step>
+
+  <mat-step [stepControl]="userDetailsFormGroup">
+    <form [formGroup]="userDetailsFormGroup">
+      <ng-template matStepLabel>User Details</ng-template>
+     
+      <form class="example-form" [formGroup]="usernameFormGroup">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label >UserName</mat-label>
+          <input matInput formControlName="username" placeholder="Ex. John" >
+        </mat-form-field>
+      </form>     
+      <form class="example-form" [formGroup]="emailFormGroup">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" placeholder="abc@gmil.com" >
+        </mat-form-field>
+      </form>  
+
+      <form class="example-form" [formGroup]="addressFormGroup">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label   >Address</mat-label>
+          <input matInput formControlName="address" placeholder="Ex. 33 S Street" >
+        </mat-form-field>
+      </form>   
+      <!-- <form class="example-form" >
+        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Date Of Birth</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      
+        </mat-form-field>
+      </form>   -->
+   
+  
+      <br>
+      <br>
+      <br>
+   <mat-divider></mat-divider>
+    <br>
+    <br>
+    <br>
+      <div>
+        <button mat-button matStepperNext primary>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <!-- <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Booking Type</ng-template>
+      <mat-card>
+        <mat-card-title>Single Room</mat-card-title>
+      <input type="number" id="singleroom_no" name="singleroom_no"
+             min="1" max="10">
+             <br>
+            </mat-card>
+            <mat-divider></mat-divider>
+      
+            <mat-card>
+              <mat-card-title>Double Room</mat-card-title>
+            <input type="number" id="double_room" name="singleroom_no"
+                   min="1" max="10">
+                   <br>
+                   <mat-divider></mat-divider>
+                  </mat-card> <mat-card>
+                    <mat-card-title>Suit</mat-card-title>
+                  <input type="number" id="suit" name="singleroom_no"
+                         min="1" max="10">
+                         <br>
+                        </mat-card>
+                        <mat-divider></mat-divider>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step> -->
+  <!-- <mat-step [stepControl]="thirdFormGroup">
+    <form [formGroup]="thirdFormGroup">
+      <ng-template matStepLabel>Amenities</ng-template>
+      <mat-form-field class="example-chip-list" appearance="fill">
+        <mat-label>Amenties</mat-label>
+        <mat-chip-list #chipList aria-label="Fruit selection">
+          <mat-chip
+            *ngFor="let fruit of fruits"
+            (removed)="remove(fruit)">
+            {{fruit}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Amenties..."
+            #fruitInput
+            [formControl]="fruitCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
+            {{fruit}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <br>
+        
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      
+    </form>
+  </mat-step> -->
+
+
+    <mat-step>
+      <ng-template matStepLabel>Finish</ng-template>
+      <mat-card>
+        <br>Total 
+        <input type="text" name="total_amount" disabled [(ngModel)]="totalAmount"></mat-card>
+        <mat-divider></mat-divider>
+        <mat-checkbox  (change)="redeemPoints($event.checked)" class="example-margin">Redeem your Reward Points!!</mat-checkbox>
+        <div *ngIf="redeemPointsCheckBox" >
+         <mat-card>
+         Your Reward Points <input type="text" name="points" disabled [(ngModel)]="rewards"/>
+         </mat-card>
+         <mat-divider></mat-divider>
+       
+           <br> 
+            Net Paid 
+            <input type="text" name="net_paid" disabled [(ngModel)]="netPaid" />
+       
+
+        </div>
+        <br>
+        <br>
+        <br>
+      <p>You're finished!</p>
+      
+      <button mat-button matStepperPrevious>Back</button>
+      <!-- <button mat-button>Submit Answers</button> -->
+      
+      <button mat-button type = "button" class="btn btn-success" (click)="onSubmit()" >Submit</button>
+    </mat-step>
+
+</mat-horizontal-stepper>
