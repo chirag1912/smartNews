@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profile"
+        android:title="Top World News"/>
+
+    <item
+        android:id="@+id/contact"
+        android:title="Sports News"/>
+
+    <item
+        android:id="@+id/about"
+        android:title="Business News"/>
+    <item
+        android:id="@+id/logout"
+        android:title="Weather"/>
+
+</menu>
