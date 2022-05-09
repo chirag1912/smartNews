@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     List<Source>  sources = new ArrayList<>();
     Button mic;
      TextToSpeech mTTS;
+     boolean micOn = false;
 
     //For Navigation Bar
     DrawerLayout drawerLayout;
@@ -156,17 +157,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // code to get headlines an read all of them
+               // code to get headlines and read all of them
+                if( micOn == true){
+                    micOn = false;
+                    mTTS.stop();
+                }else{
+                    micOn = true;
+                    for(int i=0;i<articles.size();i++){
 
-                String text = " Welcome to Smart News! Hope you have a good day!";
-
-
-
-                for(int i=0;i<articles.size();i++){
-
-                    mTTS.speak(articles.get(i).getTitle(), TextToSpeech.QUEUE_ADD, null);
+                        mTTS.speak(articles.get(i).getTitle(), TextToSpeech.QUEUE_ADD, null);
+                    }
                 }
-
 
             }
         });
