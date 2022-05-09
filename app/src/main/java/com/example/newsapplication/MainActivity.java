@@ -106,30 +106,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onRefresh() {
                switch (query) {
                    case "headlines":
-                       retrieveJson("", country, API_KEY);
+                       retrieveJson("", country, API_KEY, false);
                        break;
                    case "health":
-                       retrieveJson("health",country,API_KEY);
+                       retrieveJson("health",country,API_KEY, false);
                        break;
 
                    case "technology":
-                       retrieveJson("technology",country,API_KEY);
+                       retrieveJson("technology",country,API_KEY, false);
                        break;
 
                    case "science":
-                       retrieveJson("science",country,API_KEY);
+                       retrieveJson("science",country,API_KEY, false);
                        break;
 
                    case "business":
-                       retrieveJson("business",country,API_KEY);
+                       retrieveJson("business",country,API_KEY, false);
                        break;
 
                    case "entertainment":
-                       retrieveJson("entertainment",country,API_KEY);
+                       retrieveJson("entertainment",country,API_KEY, false);
                        break;
 
                    case "sports":
-                       retrieveJson("sports",country,API_KEY);
+                       retrieveJson("sports",country,API_KEY, false);
                        break;
                    default:
                        break;
@@ -139,16 +139,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 if (query == "headlines")
                 {
-                    retrieveJson("",country,API_KEY);
+                    retrieveJson("",country,API_KEY, false);
                 }
                else if (query == "headlines")
                 {
-                    retrieveJson("",country,API_KEY);
+                    retrieveJson("",country,API_KEY, false);
                 }
 
             }
         });
-        retrieveJson("",country,API_KEY);
+        retrieveJson("",country,API_KEY, false);
 
         btnAboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void retrieveJson(String query ,String country, String apiKey){
+    public void retrieveJson(String query ,String country, String apiKey, boolean flag ){
 
         Call<Headlines> call;
         swipeRefreshLayout.setRefreshing(true);
@@ -232,8 +232,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.d("articles", "onResponse() returned: headlines " + call);
         }
         else {
-            call = ApiClient.getInstance().getApi().getCategoryData(query, apiKey);
-            Log.d("articles", "onResponse() returned: category data " + call);
+            if (flag == false)
+            {
+                call = ApiClient.getInstance().getApi().getCategoryData(query, apiKey);
+                Log.d("articles", "onResponse() returned: category data " + call);
+            }
+            else
+            {
+                call = ApiClient.getInstance().getApi().getSpecificData(query,apiKey);
+            }
+
         }
 
         call.enqueue(new Callback<Headlines>() {
@@ -291,35 +299,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()){
             case R.id.headlines:
                 this.query = "headlines";
-                retrieveJson("",country,API_KEY);
+                retrieveJson("",country,API_KEY, false);
             case R.id.sports:
                 this.query = "sports";
-                retrieveJson("sports",country,API_KEY);
+                retrieveJson("sports",country,API_KEY, false);
 //                Toast.makeText(MainActivity.this, "Profile Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.technology:
                 this.query = "technology";
-                retrieveJson("technology",country,API_KEY);
+                retrieveJson("technology",country,API_KEY, false);
 //                Toast.makeText(MainActivity.this, "Contact us Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.science:
                 this.query = "science";
-                retrieveJson("science",country,API_KEY);
+                retrieveJson("science",country,API_KEY, false);
 //                Toast.makeText(MainActivity.this, "About us Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.health:
                 this.query = "health";
-                retrieveJson("health",country,API_KEY);
+                retrieveJson("health",country,API_KEY,false);
 //                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.business:
                 this.query = "business";
-                retrieveJson("business",country,API_KEY);
+                retrieveJson("business",country,API_KEY, false);
 //                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.entertainment:
                 this.query = "entertainment";
-                retrieveJson("entertainment",country,API_KEY);
+                retrieveJson("entertainment",country,API_KEY, false);
 //                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
                 break;
             default:
@@ -357,6 +365,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
                             Log.i("val", "val: " + val);// prints line output
+                            final String country = getCountry();
+                            query = "specific-data";
+                            retrieveJson(val,country,API_KEY, true);
 //                            ((TextView) findViewById(R.id.textView2)).setText(val);
                         }
                     }
