@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Adapter adapter;
     List<Articles>  articles = new ArrayList<>();
     List<Source>  sources = new ArrayList<>();
+    Button mic;
+     TextToSpeech mTTS;
+     boolean micOn = false;
 
     //For Navigation Bar
     DrawerLayout drawerLayout;
@@ -67,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        btnSearch = findViewById(R.id.btnSearch);
         btnAboutUs = findViewById(R.id.aboutUs);
         dialog = new Dialog(MainActivity.this);
+
+        mic = findViewById(R.id.mic);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final String country = getCountry();
@@ -127,6 +133,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 showDialog();
             }
         });
+
+
+
+        mTTS = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status == TextToSpeech.SUCCESS) {
+                    int result = mTTS.setLanguage(Locale.US);
+
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Log.e("TTS", "Language not supported");
+                    } else {
+                        mic.setEnabled(true);
+                    }
+                } else {
+                    Log.e("TTS", "Initialization failed");
+                }
+            }
+        });
+
+        mic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // code to get headlines and read all of them
+                if( micOn == true){
+                    micOn = false;
+                    mTTS.stop();
+                }else{
+                    micOn = true;
+
+                    if(sources.size()>0){
+
+                        for(int i=0;i<sources.size();i++){
+
+                            mTTS.speak(sources.get(i).getDescription(), TextToSpeech.QUEUE_ADD, null);
+                        }
+                    }else{
+                        for(int i=0;i<articles.size();i++){
+
+                            mTTS.speak(articles.get(i).getTitle(), TextToSpeech.QUEUE_ADD, null);
+                        }
+                    }
+
+                }
+
+            }
+        });
+
+
 
         //For Navigration Drawer
         drawerLayout = findViewById(R.id.drawer);
