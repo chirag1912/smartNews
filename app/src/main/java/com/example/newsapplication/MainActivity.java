@@ -163,10 +163,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mTTS.stop();
                 }else{
                     micOn = true;
-                    for(int i=0;i<articles.size();i++){
 
-                        mTTS.speak(articles.get(i).getTitle(), TextToSpeech.QUEUE_ADD, null);
+                    if(sources.size()>0){
+
+                        for(int i=0;i<sources.size();i++){
+
+                            mTTS.speak(sources.get(i).getDescription(), TextToSpeech.QUEUE_ADD, null);
+                        }
+                    }else{
+                        for(int i=0;i<articles.size();i++){
+
+                            mTTS.speak(articles.get(i).getTitle(), TextToSpeech.QUEUE_ADD, null);
+                        }
                     }
+
                 }
 
             }
