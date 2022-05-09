@@ -24,6 +24,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" android:screenOrientation="locked" android:windowSoftInputMode="stateHidden" />
+
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
+
     </application>
 
 
