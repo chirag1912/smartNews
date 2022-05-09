@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }else{
                     micOn = true;
 
-                    if(sources.size()>0){
+                    if(adapter.viewType==2){
 
                         for(int i=0;i<sources.size();i++){
 
