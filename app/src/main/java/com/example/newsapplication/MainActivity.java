@@ -11,6 +11,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -19,12 +22,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newsapplication.Model.Articles;
 import com.example.newsapplication.Model.Headlines;
 import com.example.newsapplication.Model.Source;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.mlkit.vision.common.InputImage;
+import com.google.mlkit.vision.text.Text;
+import com.google.mlkit.vision.text.TextRecognition;
+import com.google.mlkit.vision.text.TextRecognizer;
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -255,9 +267,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return country.toLowerCase();
     }
 
-
-
-
     public void showDialog(){
         Button btnClose;
         dialog.setContentView(R.layout.about_us_pop_up);
@@ -306,5 +315,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return false;
+    }
+
+
+    public void getTextFromImage(Bitmap bitmap)
+    {
+        Log.i("Image", "getTextFromImage: " + bitmap);
+        InputImage image = InputImage.fromBitmap(bitmap,0);
+        TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
+        Task<Text> result =
+                recognizer.process(image).addOnSuccessListener(new OnSuccessListener<Text>() {
+                    @Override
+                    public void onSuccess(Text text) {
+                        Log.i("SuCCEss", "onSuccess: " + text);
+                        Text result = text;
+                        String resultText = result.getText();
+                        String val = "";
+                        for (Text.TextBlock block : result.getTextBlocks()) {
+                            String blockText = block.getText();
+                            Point[] blockCornerPoints = block.getCornerPoints();
+                            Rect blockFrame = block.getBoundingBox();
+
+
+
+                            for (Text.Line line : block.getLines()) {
+                                String lineText = line.getText();
+                                Log.i("Text", lineText);// prints line output
+                                val = val + lineText + "\n";
+                            }
+
+
+                            Log.i("val", "val: " + val);// prints line output
+//                            ((TextView) findViewById(R.id.textView2)).setText(val);
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Error", "onFailure: " + e );
+                    }
+                });
     }
 }
