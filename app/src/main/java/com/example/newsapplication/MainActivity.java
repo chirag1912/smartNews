@@ -37,12 +37,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
-//    EditText etQuery;
-//    Button btnSearch,
     Button  btnAboutUs;
     Dialog dialog;
     final String API_KEY = "a283830f953a4abda0897c4178511055";
-//final String API_KEY = "Your API Key";
     Adapter adapter;
     List<Articles>  articles = new ArrayList<>();
     List<Source>  sources = new ArrayList<>();
@@ -52,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
+
+    String query;
 
 
     @SuppressLint({"RestrictedApi", "WrongViewCast"})
@@ -76,7 +75,48 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                retrieveJson("",country,API_KEY);
+               switch (query) {
+                   case "headlines":
+                       retrieveJson("", country, API_KEY);
+                       break;
+                   case "health":
+                       retrieveJson("health",country,API_KEY);
+                       break;
+
+                   case "technology":
+                       retrieveJson("technology",country,API_KEY);
+                       break;
+
+                   case "science":
+                       retrieveJson("science",country,API_KEY);
+                       break;
+
+                   case "business":
+                       retrieveJson("business",country,API_KEY);
+                       break;
+
+                   case "entertainment":
+                       retrieveJson("entertainment",country,API_KEY);
+                       break;
+
+                   case "sports":
+                       retrieveJson("sports",country,API_KEY);
+                       break;
+                   default:
+                       break;
+
+
+               }
+
+                if (query == "headlines")
+                {
+                    retrieveJson("",country,API_KEY);
+                }
+               else if (query == "headlines")
+                {
+                    retrieveJson("",country,API_KEY);
+                }
+
             }
         });
         retrieveJson("",country,API_KEY);
@@ -171,20 +211,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        final String country = getCountry();
         switch (menuItem.getItemId()){
-            case R.id.profile:
-                final String country = getCountry();
+            case R.id.headlines:
+                this.query = "headlines";
+                retrieveJson("",country,API_KEY);
+            case R.id.sports:
+                this.query = "sports";
                 retrieveJson("sports",country,API_KEY);
-                Toast.makeText(MainActivity.this, "Profile Selected", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "Profile Selected", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.contact:
-                Toast.makeText(MainActivity.this, "Contact us Selected", Toast.LENGTH_SHORT).show();
+            case R.id.technology:
+                this.query = "technology";
+                retrieveJson("technology",country,API_KEY);
+//                Toast.makeText(MainActivity.this, "Contact us Selected", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.about:
-                Toast.makeText(MainActivity.this, "About us Selected", Toast.LENGTH_SHORT).show();
+            case R.id.science:
+                this.query = "science";
+                retrieveJson("science",country,API_KEY);
+//                Toast.makeText(MainActivity.this, "About us Selected", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.logout:
-                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
+            case R.id.health:
+                this.query = "health";
+                retrieveJson("health",country,API_KEY);
+//                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.business:
+                this.query = "business";
+                retrieveJson("business",country,API_KEY);
+//                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.entertainment:
+                this.query = "entertainment";
+                retrieveJson("entertainment",country,API_KEY);
+//                Toast.makeText(MainActivity.this, "Logout Selected", Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

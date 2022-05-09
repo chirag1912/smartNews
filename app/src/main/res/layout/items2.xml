@@ -41,8 +41,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvDesc"
-                android:layout_gravity="bottom"
+                android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
                 android:padding="10dp">
 
@@ -62,7 +61,9 @@
                     android:text="5 hour ago"
                     android:textColor="@color/white"
                     android:textSize="15dp" />
+
             </LinearLayout>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
