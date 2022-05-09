@@ -30,6 +30,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     Context context;
     List<Articles> articles;
     List<Source> sources;
+    int viewType;
 
 
     public Adapter(Context context, List<Articles> articles, List<Source> sources) {
@@ -38,10 +39,32 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.sources = sources;
     }
 
+    public int setItemViewType(int viewType)
+    {
+        this.viewType = viewType;
+        return this.viewType;
+    }
+    @Override
+    public int getItemViewType(int position) {
+
+        return super.getItemViewType(position);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items,parent,false);
+      View view ;
+      if (this.viewType == 1)
+    {
+     view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items,parent,false);
+
+    }
+        else
+        {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items2,parent,false);
+        }
+
+
         return new ViewHolder(view);
     }
 
@@ -49,7 +72,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 //       Articles a = null;
 
-       if (articles.size() > 0)
+       if (this.viewType == 1)
        {
            final Articles a =  articles.get(position);
            String imageUrl = a.getUrlToImage();
@@ -100,8 +123,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                }
            });
        }
-
-
 
 
     }

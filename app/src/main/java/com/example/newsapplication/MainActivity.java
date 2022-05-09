@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     articles = response.body().getArticles();
                     Log.d("articles", "onResponse() returned: " + articles);
                     adapter = new Adapter(MainActivity.this,articles,sources);
+                    adapter.setItemViewType(1);
                     recyclerView.setAdapter(adapter);
                 }
 
@@ -138,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Log.d("sources", "onResponse() returned: " + sources);
                     articles.removeAll(articles);
                     adapter = new Adapter(MainActivity.this , articles,sources);
+                    adapter.setItemViewType(2);
                     recyclerView.setAdapter(adapter);
                 }
             }
