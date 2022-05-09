@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/profile"
-        android:title="Top World News"/>
+        android:id="@+id/headlines"
+        android:title="Top Headlines"/>
 
     <item
-        android:id="@+id/contact"
+        android:id="@+id/sports"
         android:title="Sports News"/>
 
     <item
-        android:id="@+id/about"
+        android:id="@+id/technology"
+        android:title="Technology News"/>
+
+    <item
+        android:id="@+id/business"
         android:title="Business News"/>
     <item
-        android:id="@+id/logout"
-        android:title="Weather"/>
+        android:id="@+id/science"
+        android:title="Science News"/>
+
+    <item
+        android:id="@+id/health"
+        android:title="Health News"/>
+
+    <item
+        android:id="@+id/entertainment"
+        android:title="Entertainment News"/>
 
 </menu>
