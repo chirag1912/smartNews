@@ -53,19 +53,20 @@
             android:id="@+id/aboutUs"/>
 
         <Button
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:id="@+id/mic"
+            android:layout_width="21dp"
+            android:layout_height="22dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:padding="10dp"
             android:background="@drawable/ic_mic"
-            android:id="@+id/mic"/>
+            android:padding="10dp" />
 
         <Button
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
+            android:onClick="openCamera"
             android:padding="10dp"
             android:background="@drawable/ic_cam"
             android:id="@+id/cam"/>
