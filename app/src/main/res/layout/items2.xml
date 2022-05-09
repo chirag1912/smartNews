@@ -14,10 +14,10 @@
         app:cardCornerRadius="6dp">
 
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="#3A4FB7">
+            android:background="#539790">
 
 
             <TextView
@@ -29,9 +29,19 @@
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:padding="10dp"
+                android:text="Description"
+                android:textColor="@color/white" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/tvDesc"
                 android:layout_gravity="bottom"
                 android:orientation="horizontal"
                 android:padding="10dp">
@@ -41,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Source"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15dp" />
 
                 <TextView
@@ -53,7 +63,7 @@
                     android:textColor="@color/white"
                     android:textSize="15dp" />
             </LinearLayout>
-        </FrameLayout>
+        </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

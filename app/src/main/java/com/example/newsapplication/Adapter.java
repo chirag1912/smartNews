@@ -57,14 +57,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
       if (this.viewType == 1)
     {
      view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items,parent,false);
-
     }
-        else
+      else
         {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items2,parent,false);
         }
-
-
         return new ViewHolder(view);
     }
 
@@ -105,6 +102,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
            String url = b.getUrl();
            holder.tvTitle.setText(b.getName());
            holder.tvSource.setText("GoogleNewAPI");
+           holder.tvDesc.setText(b.getDescription());
 //           holder.tvDate.setText("");
 
            holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -129,11 +127,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return articles.size();
+        if (this.viewType == 1)
+        {
+            return articles.size();
+        }
+        else {
+            return sources.size();
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle,tvSource,tvDate;
+        TextView tvTitle,tvSource,tvDate,tvDesc;
         ImageView imageView;
         CardView cardView;
 
@@ -145,7 +150,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             tvDate = itemView.findViewById(R.id.tvDate);
             imageView = itemView.findViewById(R.id.image);
             cardView = itemView.findViewById(R.id.cardView);
-
+            tvDesc = itemView.findViewById(R.id.tvDesc);
         }
     }
 
