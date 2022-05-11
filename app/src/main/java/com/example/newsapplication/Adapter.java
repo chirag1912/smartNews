@@ -20,6 +20,7 @@ import com.squareup.picasso.Picasso;
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.format.SimpleTimeFormat;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 //import java.time.LocalDateTime;
@@ -83,11 +84,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
            holder.tvTitle.setText(a.getTitle());
            holder.tvSource.setText(a.getAuthor());
 //           SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",, Locale.US);
+//           DateFormat df = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
+           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 //           try {
 //     SimpleDateFormat
 //               Log.d("date", "onBindViewHolder() returned: " + date);
-               holder.tvDate.setText(a.getPublishedAt().toString());
+           try {
+//               Date date = new Date();
+               Date date = format.parse(a.getPublishedAt());
+               holder.tvDate.setText(date.toString());
+           } catch (ParseException e) {
+               e.printStackTrace();
+           }
 //           } catch (ParseException e) {
 //               e.printStackTrace();
 //           }
