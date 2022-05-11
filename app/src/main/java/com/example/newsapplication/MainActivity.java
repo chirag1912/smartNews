@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
 
-    String query;
+    String query = "headlines";
 
 
     @SuppressLint({"RestrictedApi", "WrongViewCast"})
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                Log.d("query", "onRefresh() returned: " + query );
                switch (query) {
                    case "headlines":
                        retrieveJson("", country, API_KEY, false);
@@ -132,19 +134,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                        retrieveJson("sports",country,API_KEY, false);
                        break;
                    default:
+//                       retrieveJson("", country, API_KEY, false);
                        break;
 
 
                }
 
-                if (query == "headlines")
-                {
-                    retrieveJson("",country,API_KEY, false);
-                }
-               else if (query == "headlines")
-                {
-                    retrieveJson("",country,API_KEY, false);
-                }
+//                if (query == "headlines")
+//                {
+//                    retrieveJson("",country,API_KEY, false);
+//                }
+//               else if (query == "headlines")
+//                {
+//                    retrieveJson("",country,API_KEY, false);
+//                }
 
             }
         });
@@ -226,23 +229,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Call<Headlines> call;
         swipeRefreshLayout.setRefreshing(true);
-        if (query == "")
-        {
-            call = ApiClient.getInstance().getApi().getHeadlines(country, apiKey);
-            Log.d("articles", "onResponse() returned: headlines " + call);
-        }
-        else {
+
+//        if (query == "")
+//        {
+////            call = ApiClient.getInstance().getApi().getHeadlines(query, country, apiKey);
+//            Log.d("articles", "onResponse() returned: headlines " + call);
+//        }
+//        else {
             if (flag == false)
             {
-                call = ApiClient.getInstance().getApi().getCategoryData(query, apiKey);
+                if (query == "")
+                {
+                    call = ApiClient.getInstance().getApi().getCategoryData(country, apiKey);
+                }
+                else
+                {
+                    call = ApiClient.getInstance().getApi().getHeadlines(query, country, apiKey);
+                }
+
+//                call = ApiClient.getInstance().getApi().getCategoryData(query, apiKey);
                 Log.d("articles", "onResponse() returned: category data " + call);
             }
             else
             {
+                // for ocr text
                 call = ApiClient.getInstance().getApi().getSpecificData(query,apiKey);
             }
 
-        }
+//        }
 
         call.enqueue(new Callback<Headlines>() {
             @Override
@@ -258,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     adapter.setItemViewType(1);
                     recyclerView.setAdapter(adapter);
                 }
+                        
 
                 if (response.isSuccessful() && response.body().getSources() != null){
                     swipeRefreshLayout.setRefreshing(false);
@@ -333,7 +348,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 break;
         }
-        return false;
+        drawerLayout.closeDrawers();
+//        dialog.closeOptionsMenu();
+        return true;
     }
 
 

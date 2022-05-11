@@ -2,6 +2,7 @@ package com.example.newsapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ import org.ocpsoft.prettytime.format.SimpleTimeFormat;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+//import java.time.LocalDateTime;
+//import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -78,7 +81,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
            Picasso.with(context).load(imageUrl).into(holder.imageView);
 
            holder.tvTitle.setText(a.getTitle());
-           holder.tvSource.setText("GoogleNewAPI");
+           holder.tvSource.setText(a.getAuthor());
+//           SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",, Locale.US);
+
+//           try {
+//     SimpleDateFormat
+//               Log.d("date", "onBindViewHolder() returned: " + date);
+               holder.tvDate.setText(a.getPublishedAt().toString());
+//           } catch (ParseException e) {
+//               e.printStackTrace();
+//           }
 //           holder.tvDate.setText("");
 
            holder.cardView.setOnClickListener(new View.OnClickListener() {
