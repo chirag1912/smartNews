@@ -23,6 +23,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.MenuItem;
@@ -68,15 +69,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Adapter adapter;
     List<Articles>  articles = new ArrayList<>();
     List<Source>  sources = new ArrayList<>();
+    Button speaker;
     Button mic;
      TextToSpeech mTTS;
-     boolean micOn = false;
+     boolean speakerOn = false;
 
     //For Navigation Bar
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
+    String speechToText="";
 
     String query = "headlines";
 
@@ -93,9 +96,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //        etQuery = findViewById(R.id.etQuery);
 //        btnSearch = findViewById(R.id.btnSearch);
-        btnAboutUs = findViewById(R.id.aboutUs);
+//        btnAboutUs = findViewById(R.id.aboutUs);
         dialog = new Dialog(MainActivity.this);
 
+        speaker = findViewById(R.id.speaker);
         mic = findViewById(R.id.mic);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -153,12 +157,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         retrieveJson("",country,API_KEY, false);
 
-        btnAboutUs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialog();
-            }
-        });
+//        btnAboutUs.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                showDialog();
+//            }
+//        });
 
 
 
@@ -172,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "Language not supported");
                     } else {
-                        mic.setEnabled(true);
+                        speaker.setEnabled(true);
                     }
                 } else {
                     Log.e("TTS", "Initialization failed");
@@ -180,15 +184,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        mic.setOnClickListener(new View.OnClickListener() {
+        speaker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                // code to get headlines and read all of them
-                if( micOn == true){
-                    micOn = false;
+                if( speakerOn == true){
+                    speakerOn = false;
                     mTTS.stop();
                 }else{
-                    micOn = true;
+                    speakerOn = true;
 
                     if(adapter.viewType==2){
 
@@ -224,6 +228,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
+    public void getSpeechInput(View view) {
+
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, 10);
+        } else {
+            Toast.makeText(this, "Your Device Don't Support Speech Input", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
 
     public void retrieveJson(String query ,String country, String apiKey, boolean flag ){
 
@@ -423,7 +444,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             getTextFromImage(photo);
         }
+
+        switch (requestCode) {
+            case 10:
+                if (resultCode == RESULT_OK && data != null) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.i("SPEECH TO TEXT", "onActivityResult: "+(result.get(0)));
+                    speechToText = result.get(0);
+                            final String country = getCountry();
+                         query = "specific-data";
+                         retrieveJson(speechToText,country,API_KEY, true);
+                }
+                break;
+        }
+
     }
+
 
     public void openCamera(View v)
     {
