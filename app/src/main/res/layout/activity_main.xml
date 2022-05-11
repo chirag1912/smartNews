@@ -31,6 +31,8 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,14 +45,6 @@
             android:layout_marginRight="25dp"
             android:background="@color/white"
             android:padding="10dp"/>
-        <Button
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:padding="10dp"
-            android:background="@drawable/ic_flash_on_black_24dp"
-            android:id="@+id/aboutUs"/>
 
         <Button
             android:id="@+id/mic"
@@ -59,6 +53,25 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/ic_mic"
+            android:onClick="getSpeechInput"
+            android:padding="10dp" />
+
+<!--        <Button-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:background="@drawable/ic_flash_on_black_24dp"-->
+<!--            android:id="@+id/aboutUs"/>-->
+
+        <Button
+            android:id="@+id/speaker"
+            android:layout_width="21dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_speaker"
             android:padding="10dp" />
 
         <Button
@@ -68,7 +81,7 @@
             android:layout_marginRight="20dp"
             android:onClick="openCamera"
             android:padding="10dp"
-            android:background="@drawable/ic_cam"
+            android:background="@drawable/ic_camera"
             android:id="@+id/cam"/>
 
 
