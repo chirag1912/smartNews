@@ -5,5 +5,5 @@
     <item
         android:id="@+id/aboutFragment"
         android:icon="@android:drawable/presence_away"
-        android:title="Flash News" />
+        android:title="Smart News" />
 </menu>

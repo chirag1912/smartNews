@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SwipeRefreshLayout swipeRefreshLayout;
     Button  btnAboutUs;
     Dialog dialog;
-    final String API_KEY = "b4c5f812d7d043a5ad87e9e9223ac079";
+    final String API_KEY = "9219f53fb3b54edfa5c9ed2e89506168";
     Adapter adapter;
     List<Articles>  articles = new ArrayList<>();
     List<Source>  sources = new ArrayList<>();
