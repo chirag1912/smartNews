@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -82,7 +83,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
            Picasso.with(context).load(imageUrl).into(holder.imageView);
 
            holder.tvTitle.setText(a.getTitle());
-           holder.tvSource.setText(a.getAuthor());
+//           holder.tvSource.setText(a.getAuthor());
 //           SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy",, Locale.US);
 //           DateFormat df = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.US);
            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
@@ -115,6 +116,25 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                    context.startActivity(intent);
                }
            });
+
+           holder.shareBtn.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Log.i("share", "onClick: ");
+                   Intent sendIntent = new Intent(Intent.ACTION_SEND);
+//                   sendIntent.putExtra("title",a.getTitle());
+//                   sendIntent.putExtra("source",a.getSource().getName());
+//                   sendIntent.putExtra("time",dateTime(a.getPublishedAt()));
+//                   sendIntent.putExtra("desc",a.getDescription());
+//                   sendIntent.putExtra("imageUrl",a.getUrlToImage());
+                   sendIntent.putExtra(Intent.EXTRA_TEXT,a.getUrl());
+//                   sendIntent.putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/");
+                   sendIntent.putExtra(Intent.EXTRA_TITLE, "Smart News");
+                   sendIntent.setType("text/plain");
+                   sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                   context.startActivity(sendIntent);
+               }
+           });
        }
        else
        {
@@ -141,6 +161,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                    context.startActivity(intent);
                }
            });
+
+
        }
 
 
@@ -162,6 +184,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         TextView tvTitle,tvSource,tvDate,tvDesc;
         ImageView imageView;
         CardView cardView;
+        Button shareBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -172,6 +195,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             imageView = itemView.findViewById(R.id.image);
             cardView = itemView.findViewById(R.id.cardView);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            shareBtn = itemView.findViewById(R.id.share_menu);
         }
     }
 

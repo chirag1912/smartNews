@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     SwipeRefreshLayout swipeRefreshLayout;
     Button  btnAboutUs;
     Dialog dialog;
-    final String API_KEY = "a283830f953a4abda0897c4178511055";
+    final String API_KEY = "b4c5f812d7d043a5ad87e9e9223ac079";
     Adapter adapter;
     List<Articles>  articles = new ArrayList<>();
     List<Source>  sources = new ArrayList<>();
@@ -283,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<Headlines> call, Response<Headlines> response) {
                 Log.d("headlines", "onResponse() returned: " + response);
-                Log.d("headlines", "onResponse() returned: " + response.body().getSources());
+//                Log.d("headlines", "onResponse() returned: " + response.body().getSources());
                 if (response.isSuccessful() && response.body().getArticles() != null){
                     swipeRefreshLayout.setRefreshing(false);
                     articles.clear();
@@ -460,7 +460,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-
+public void shareData(View v)
+{
+//    Log.r("share", "shareData: " + v);
+    Log.d("share", "shareData() returned: " + v);
+    Intent sendIntent = new Intent(Intent.ACTION_SEND);
+    sendIntent.putExtra(Intent.EXTRA_TEXT, "https://developer.android.com/training/sharing/");
+    sendIntent.putExtra(Intent.EXTRA_TITLE, "Smart News");
+    sendIntent.setType("text/plain");
+    sendIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    startActivity(Intent.createChooser(sendIntent, null));
+}
     public void openCamera(View v)
     {
         Button photoButton = (Button) this.findViewById(R.id.cam);

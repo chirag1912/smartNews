@@ -45,6 +45,17 @@
                 android:textColor="@color/white"
                 android:id="@+id/tvTitle"/>
 
+            <Button
+                android:id="@+id/share_menu"
+                android:layout_width="21dp"
+                android:layout_height="22dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/ic_share"
+
+                android:padding="10dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,7 +66,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Source"
+                    android:text=""
                     android:textSize="15dp"
                     android:textColor="@color/white"
                     android:id="@+id/tvSource"/>
