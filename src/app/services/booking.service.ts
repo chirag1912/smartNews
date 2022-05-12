@@ -18,7 +18,7 @@ export class BookingService {
       headers: {},
     }
 
-    this.bookingList = await API.post('hotelAPI', '/bookings', myInit).then(resp => {
+    this.bookingList = await API.post('hotelAPI', '/leasebookings', myInit).then(resp => {
       return resp;
     }).catch(err => {
       console.log(err);
@@ -28,7 +28,7 @@ export class BookingService {
   }
 
   async getBookings() {
-    this.bookingList = await API.get('hotelAPI', '/bookings/all', {}).then(resp => {
+    this.bookingList = await API.get('hotelAPI', '/leasebookings/all', {}).then(resp => {
       return resp;
     }).catch(err => {
       console.log(err);

@@ -1,1 +1,40 @@
-<p>login works!</p>
+<!-- <amplify-auth-container>
+
+
+<amplify-authenticator>
+    <ng-template
+      amplifySlot="authenticated"
+      let-user="user"
+      let-signOut="signOut"
+    >
+      <h1>Welcome {{ user.username }}!</h1>
+      <button (click)="signOut()">Sign Out</button>
+    </ng-template>
+  </amplify-authenticator>
+</amplify-auth-container> -->
+
+<!-- <amplify-auth-container> -->
+<!-- <amplify-authenticator usernameAlias="email"> -->
+<!-- <ng-template
+        amplifySlot="authenticated"
+        let-user="user"
+        let-signOut="signOut"
+      >
+        <h1>Welcome {{ user.UserAttributes[2].Value }}!</h1>
+        <button (click)="signOut()">Sign Out</button>
+      </ng-template> -->
+<!-- <app-home></app-home> -->
+<!-- <app-navbar></app-navbar> -->
+<!-- </amplify-authenticator> -->
+<!-- </amplify-auth-container> -->
+<div class="container">
+    <amplify-authenticator [services]="services" initialState="signUp">
+   
+  
+      <ng-template amplifySlot="sign-up-form-fields" let-validationErrors="validationErrors">
+        <amplify-sign-up-form-fields></amplify-sign-up-form-fields>
+      </ng-template>
+      <router-outlet></router-outlet>
+
+    </amplify-authenticator>
+  </div>

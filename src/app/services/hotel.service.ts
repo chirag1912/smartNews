@@ -13,7 +13,7 @@ export class HotelService {
 
 async getHotelById(hotelId: string) {
   var hotel = <Hotel>{};
-  hotel  = await API.get('hotelAPI', '/hotel/' + hotelId, {}).then(resp => {
+  hotel  = await API.get('hotelAPI', '/goibibohotels/' + hotelId, {}).then(resp => {
     console.log(resp);
     return resp[0];
   }).catch(err => {
@@ -41,7 +41,7 @@ return hotelList![i];
       headers: {},
     }
 
-    this.hotelList = await API.put('hotelAPI', '/hotel', myInit).then(resp => {
+    this.hotelList = await API.put('hotelAPI', '/goibibohotels', myInit).then(resp => {
       return resp;
     }).catch(err => {
       console.log(err);
@@ -51,7 +51,7 @@ return hotelList![i];
   }
 
   async getHotelList() {
-   this.hotelList = await API.get('hotelAPI', '/hotel/all&$top=5', {}).then(resp => {
+   this.hotelList = await API.get('hotelAPI', '/goibibohotels/all', {}).then(resp => {
       return resp;
     }).catch(err => {
       console.log(err);

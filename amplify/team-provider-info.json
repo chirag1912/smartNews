@@ -13,22 +13,23 @@
     },
     "categories": {
       "auth": {
-        "leasebookingbe2dbe1d": {}
+        "leasebookingbe2dbe1d": {},
+        "leasebooking7fa714d3": {}
       },
       "function": {
         "goibiboHotelsLambda": {},
         "bookingLambda": {},
         "userLambda": {
           "deploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
-          "s3Key": "amplify-builds/userLambda-6e756b664e5a6b664266-build.zip"
+          "s3Key": "amplify-builds/userLambda-323056736f7865597857-build.zip"
         },
         "leaseBookingLambda": {
           "deploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
-          "s3Key": "amplify-builds/leaseBookingLambda-4b7651626f514b4b4d5a-build.zip"
+          "s3Key": "amplify-builds/leaseBookingLambda-2f6c756357765346694c-build.zip"
         },
         "goibiboLambda": {
           "deploymentBucketName": "amplify-leasebooking-devmain-104220-deployment",
-          "s3Key": "amplify-builds/goibiboLambda-715333686d6453613230-build.zip"
+          "s3Key": "amplify-builds/goibiboLambda-7a695442793053756a55-build.zip"
         }
       }
     }

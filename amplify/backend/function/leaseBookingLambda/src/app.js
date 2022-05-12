@@ -76,19 +76,54 @@ app.get(path + hashKeyPath, function(req, res) {
     }
   }
 
-  let queryParams = {
-    TableName: tableName,
-    KeyConditions: condition
-  }
+  // let queryParams = {
+  //   TableName: tableName,
+  //   KeyConditions: condition
+  // }
 
-  dynamodb.query(queryParams, (err, data) => {
-    if (err) {
-      res.statusCode = 500;
-      res.json({error: 'Could not load items: ' + err});
-    } else {
-      res.json(data.Items);
+  // dynamodb.query(queryParams, (err, data) => {
+  //   if (err) {
+  //     res.statusCode = 500;
+  //     res.json({error: 'Could not load items: ' + err});
+  //   } else {
+  //     res.json(data.Items);
+  //   }
+  // });
+  let queryParams = {};
+  if (req.path === '/leaseBookings/all') {
+     queryParams = {
+      TableName: tableName,
+      // KeyConditions: condition
     }
-  });
+
+    dynamodb.scan(queryParams, (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.json({error: 'Could not load items: ' + err});
+      } else {
+        res.json(data.Items);
+      }
+    });
+
+  }
+  else 
+  {
+    let queryParams = {
+      TableName: tableName,
+      KeyConditions: condition
+    }
+
+    dynamodb.query(queryParams, (err, data) => {
+      if (err) {
+        res.statusCode = 500;
+        res.json({error: 'Could not load items: ' + err});
+      } else {
+        res.json(data.Items);
+      }
+    });
+
+  }
+  
 });
 
 /*****************************************
