@@ -1,2 +1,19 @@
-# smartNews
-# smartNews
+# SMART NEWS APPLICATION
+CMPE277
+SAN JOSE STATE UNIVERSITY 
+
+**SUBMITTED BY:** 
+Abhishek Yadav 
+Chirag Rajpal 
+Aakanksha Gupta
+
+-----------------------
+**FEATURE SET:**
+
+1. GLOBAL NEWS API INTEGRATION
+2. CATEGORY BASED NEWS 
+3. GOOGLE ML KIT TEXT-RECOGNITION API 
+4. TEXT TO SPEECH -- 
+
+
+
