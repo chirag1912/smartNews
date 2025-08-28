@@ -12,7 +12,7 @@ Aakanksha Gupta
 
 **STEP 1:** 
 ```
-git clone https://github.com/chiragrajp/smartNews.git
+git clone https://github.com/chirag_rajp/smartNews.git
 ```
 **STEP 2:** Turn on Wireless Debugging on your android mobile. 
 **STEP 3:** Run android app on mobile phone. 
